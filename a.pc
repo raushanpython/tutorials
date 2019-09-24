@@ -1,0 +1,25 @@
+exec sql begin declare section;
+int deptno;
+char deptname[30], deploc[30];
+char username[30]="a/b";
+exec sql end declare section;
+exec sql include sqlca;
+
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+void main()
+{
+exec sql connect:username;
+if (sqlca.sqlcode ==0 )
+ { 
+   printf("Connected successfully");
+   printf("enter the deptno:");
+   scanf("%d",&deptno);
+   exec sql select dname, loc into :deptname, :deploc from dept where deptno = :deptno;
+ }
+ else 
+     printf("Unsuccessful connection");
+  getch();
+}
